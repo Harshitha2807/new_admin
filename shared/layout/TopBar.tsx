@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Inbox, Search, Settings, X } from "lucide-react";
+import { Bell, Inbox, Menu, Search, Settings, X } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 import { useFindInPage } from "@/shared/lib/useFindInPage";
 import { Avatar, Btn, Pill } from "@/shared/ui";
 import { LeaderboardButton } from "./LeaderboardButton";
 import type { DashboardConfig } from "./types";
 
-const ICON_BTN = "relative size-10 bg-canvas border border-border rounded-[10px] flex items-center justify-center text-ink-2 hover:bg-accent-mist";
+const ICON_BTN = "relative size-9 sm:size-10 shrink-0 bg-canvas border border-border rounded-[10px] flex items-center justify-center text-ink-2 hover:bg-accent-mist";
 const PASSWORD_INPUT = "w-full rounded-[10px] border border-border bg-paper px-3 py-2.5 text-[13px] text-ink font-sans focus:outline-hidden focus:border-accent";
 
-/** Preline-style header: search input, environment badge, actions, viewer. */
-export const TopBar = ({ config }: { config: DashboardConfig }) => {
+/** Preline-style header: search input, environment badge, actions, viewer.
+    On small screens it shows a menu button (opens the sidebar) and hides the search box and viewer name. */
+export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMenuClick: () => void }) => {
   const { viewer } = config;
   const pathname = usePathname();
   const [query, setQuery] = useState("");
@@ -55,8 +56,12 @@ export const TopBar = ({ config }: { config: DashboardConfig }) => {
   };
 
   return (
-    <header className="h-17.5 shrink-0 bg-paper border-b border-border px-8 flex items-center gap-5">
-      <div className="relative flex-1 max-w-105">
+    <header className="h-15 sm:h-17.5 shrink-0 bg-paper border-b border-border px-4 sm:px-6 lg:px-8 flex items-center gap-2 sm:gap-3 lg:gap-5">
+      <button type="button" aria-label="Open menu" onClick={onMenuClick} className={cn(ICON_BTN, "lg:hidden")}>
+        <Menu size={18}/>
+      </button>
+
+      <div className="relative flex-1 max-w-105 hidden md:block">
         <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3.5">
           <Search size={16} className="text-mute"/>
         </div>
@@ -77,7 +82,7 @@ export const TopBar = ({ config }: { config: DashboardConfig }) => {
 
       <div className="flex-1"/>
 
-      {config.environment && <Pill tone="green" dot>{config.environment}</Pill>}
+      {config.environment && <span className="hidden md:inline-flex"><Pill tone="green" dot>{config.environment}</Pill></span>}
 
       {config.leaderboard && (
         <LeaderboardButton entries={config.leaderboard.entries} href={`${config.basePath}/${config.leaderboard.slug}`} className={ICON_BTN}/>
@@ -105,9 +110,9 @@ export const TopBar = ({ config }: { config: DashboardConfig }) => {
         <span className="absolute top-2 right-2 size-2 bg-err rounded-full border-2 border-paper"/>
       </button>
 
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2.5 shrink-0">
         <Avatar name={viewer.name} size={40}/>
-        <div>
+        <div className="hidden md:block">
           <div className="text-[13.5px] font-bold text-ink tracking-[-0.2px] leading-[1.1]">{viewer.name}</div>
           <div className={cn("text-[11px] mt-0.5", config.viewerSubtitleAccent ? "text-accent font-bold" : "text-ink-3")}>
             {config.viewerSubtitle}
