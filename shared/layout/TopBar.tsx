@@ -61,7 +61,7 @@ export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMen
         <Menu size={18}/>
       </button>
 
-      <div className="relative flex-1 max-w-105 hidden md:block">
+      <div className="relative flex-1 max-w-105 hidden lg:block">
         <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3.5">
           <Search size={16} className="text-mute"/>
         </div>
