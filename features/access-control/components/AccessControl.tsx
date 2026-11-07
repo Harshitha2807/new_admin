@@ -10,9 +10,12 @@ export const AccessControl = () => (
     <PageHeader title="Access Control" sub="Manage who can access each client's dashboard" action={<Btn variant="primary" icon={UserPlus}>Invite user</Btn>}/>
 
     <Card padding={0}>
-      <div className="py-3.5 px-5 border-b border-b-border">
+      <div className="py-3.5 px-4 sm:px-5 border-b border-b-border">
         <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Dashboard access by client</div>
       </div>
+      {/* On narrow screens the rows scroll sideways instead of squeezing. */}
+      <div className="overflow-x-auto">
+      <div className="min-w-[760px]">
       {CLIENTS.filter(c => c.status === "live").map((c, i, arr) => {
         const Icon = typeIcon(c.type);
         return (
@@ -40,6 +43,8 @@ export const AccessControl = () => (
           </div>
         );
       })}
+      </div>
+      </div>
     </Card>
   </div>
 );

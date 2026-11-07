@@ -11,7 +11,7 @@ export const Devices = () => (
   <div>
     <PageHeader title="Device fleet" sub={`${CLIENTS.reduce((s, c) => s + c.devices, 0)} connected devices across all clients`}/>
 
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {DEVICES_SPLIT.map(d => {
         const Icon = d.icon;
         return (

@@ -6,7 +6,7 @@ import { Card, PageHeader } from "@/shared/ui";
 export const AdminSettings = () => (
   <div>
     <PageHeader title="Settings" sub="Organization configuration and system preferences"/>
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {[
         { icon: Building2, label: "Organization",   desc: "Company profile, legal entities" },
         { icon: Shield,     label: "Security",      desc: "MFA, SSO, audit logs" },

@@ -100,8 +100,8 @@ const Overview = () => {
   const nextMilestones = PROJECT_TRACKER.milestones.filter((milestone) => milestone.status !== "Completed");
 
   return (
-    <div className="grid gap-4 xl:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)]">
-      <div className="grid content-start gap-4">
+    <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)]">
+      <div className="grid grid-cols-1 content-start gap-4">
         <Card>
           <SectionTitle detail="Delivery summary">Project Summary</SectionTitle>
           <p className="m-0 text-[13px] leading-6 text-ink-2">{PROJECT_TRACKER.project.summary}</p>
@@ -148,10 +148,10 @@ const Overview = () => {
         </Card>
       </div>
 
-      <div className="grid content-start gap-4">
+      <div className="grid grid-cols-1 content-start gap-4">
         <Card>
           <SectionTitle>Delivery by Phase</SectionTitle>
-          <div className="grid gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {phaseStats.map((phase) => (
               <div key={phase.name}>
                 <div className="mb-2 flex justify-between text-[12px]">
@@ -166,7 +166,7 @@ const Overview = () => {
 
         <Card>
           <SectionTitle detail="Upcoming checkpoints">Milestones</SectionTitle>
-          <div className="grid gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {nextMilestones.slice(0, 3).map((milestone) => (
               <div key={milestone.id} className="flex items-start justify-between gap-3 border-b border-border pb-3 last:border-0 last:pb-0">
                 <div>
@@ -181,7 +181,7 @@ const Overview = () => {
 
         <Card>
           <SectionTitle detail={`${openRisks.length} need follow-up`}>Open Risks & Issues</SectionTitle>
-          <div className="grid gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {openRisks.map((risk) => (
               <div key={risk.title} className="border-b border-border pb-3 last:border-0 last:pb-0">
                 <div className="flex flex-wrap items-center gap-2">
@@ -196,7 +196,7 @@ const Overview = () => {
 
         <Card>
           <SectionTitle>Recent Activity</SectionTitle>
-          <div className="grid gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {PROJECT_TRACKER.activities.map((activity) => (
               <div key={activity.text} className="flex gap-3">
                 <span className="mt-1.5 size-2 shrink-0 rounded-full bg-accent" />
@@ -219,7 +219,7 @@ const TabContent = ({ tab }: { tab: TrackerTab }) => {
       return <ProjectTracker />;
     case "Timeline":
       return (
-        <div className="grid gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <Card>
             <SectionTitle detail="6 stages">Project Lifecycle</SectionTitle>
             <div className="overflow-x-auto pt-3">
@@ -321,7 +321,7 @@ export const ClientProjects = () => {
   const [activeTab, setActiveTab] = useState<TrackerTab>("Project Tracker");
 
   return (
-    <div className="grid gap-5">
+    <div className="grid grid-cols-1 gap-5">
       <div className="flex gap-1 overflow-x-auto border-b border-border" role="tablist" aria-label="Project sections">
         {TABS.map((tab) => (
           <button

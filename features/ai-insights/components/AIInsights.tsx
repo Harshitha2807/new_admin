@@ -14,10 +14,10 @@ export const AIInsights = () => (
 
     <Card padding={0} className="mb-5 text-white border-0 overflow-hidden relative" style={{ background: `linear-gradient(135deg, ${T.ink} 0%, ${T.pDeep} 100%)` }}>
       <div className="absolute -right-10 -top-10 w-55 h-55 rounded-full" style={{ background: `radial-gradient(circle, ${T.pLight}40 0%, transparent 70%)` }}/>
-      <div className="py-6.5 px-7 relative grid grid-cols-[2fr_1fr_1fr] gap-6 items-center">
-        <div>
+      <div className="py-5 px-5 sm:py-6.5 sm:px-7 relative grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr] gap-4 sm:gap-6 items-center">
+        <div className="col-span-2 md:col-span-1">
           <div className="text-[11px] text-p-light tracking-[2px] uppercase font-extrabold mb-1.5">Elements AI · last 24h</div>
-          <div className="text-[26px] font-extrabold tracking-[-0.8px]">4 new insights · ₹11.2L savings identified</div>
+          <div className="text-[20px] sm:text-[26px] font-extrabold tracking-[-0.8px]">4 new insights · ₹11.2L savings identified</div>
           <div className="text-[13px] opacity-80 mt-2">Models trained on 184 GB of time-series data across 724 devices</div>
         </div>
         <div>
@@ -31,7 +31,7 @@ export const AIInsights = () => (
       </div>
     </Card>
 
-    <div className="grid grid-cols-2 gap-3.5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
       {AI_INSIGHTS.map((ins, i) => (
         <Card key={i} padding={20}>
           <div className="flex justify-between items-center mb-2.5">
