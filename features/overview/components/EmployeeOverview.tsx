@@ -29,9 +29,9 @@ export const EmployeeOverview = () => {
       />
 
       {/* CHECK-IN HERO — the main action */}
-      <div className="grid grid-cols-[1.3fr_1fr_1fr] gap-4 mb-4.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.3fr_1fr_1fr] gap-4 mb-4.5">
         {/* Check in/out card — gradient hero */}
-        <Card padding={0} className="text-white border-0 overflow-hidden relative" style={{ background: isCheckedIn
+        <Card padding={0} className="text-white border-0 overflow-hidden relative md:col-span-2 xl:col-span-1" style={{ background: isCheckedIn
             ? `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)`
             : `linear-gradient(135deg, ${T.ink} 0%, ${T.ink2} 100%)` }}>
           <div className="absolute -right-7.5 -top-7.5 w-40 h-40 rounded-full" style={{ background: `radial-gradient(circle, ${T.a}30 0%, transparent 70%)` }}/>
@@ -144,14 +144,14 @@ export const EmployeeOverview = () => {
       </div>
 
       {/* Leave balance donuts */}
-      <div className="grid grid-cols-4 gap-4 mb-4.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4.5">
         {LEAVES.map(l => (
           <DonutKPI key={l.code} label={l.name} used={l.used} total={l.total} color={l.color} unit={l.unit}/>
         ))}
       </div>
 
       {/* Today's tasks + Announcements */}
-      <div className="grid grid-cols-[1.4fr_1fr] gap-4.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-4.5">
         <Card padding={22}>
           <div className="flex justify-between items-center mb-3.5">
             <div>

@@ -41,7 +41,7 @@ export const TravelExpenses = () => {
       />
 
       {/* KPIs */}
-      <div className="grid grid-cols-4 gap-3.5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
         <StatKPI label="Active trips" value={TRAVEL_REQUESTS.filter(t => t.status === "Approved").length} trend="Delhi site visit · 15 Oct" icon={Plane}/>
         <StatKPI label="Pending approval" value={TRAVEL_REQUESTS.filter(t => t.status === "Pending").length} trend="Mysuru review" trendColor="amber" icon={Clock}/>
         <StatKPI label="Reimbursed (FY)" value={`₹${(totalApproved/1000).toFixed(1)}K`} trend="Across 8 trips" icon={CheckCircle2}/>
@@ -49,7 +49,7 @@ export const TravelExpenses = () => {
       </div>
 
       {/* Tab switcher */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex flex-wrap gap-2 mb-5">
         {[
           { id: "trips",     label: "Trips",     icon: Plane,   n: TRAVEL_REQUESTS.length },
           { id: "expenses",  label: "Expenses",  icon: Receipt, n: EXPENSES.length },
@@ -70,7 +70,7 @@ export const TravelExpenses = () => {
       {tab === "trips" && (
         <Card padding={0}>
           <div className="overflow-x-auto">
-            <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+            <table className="w-full font-sans border-collapse">
               <thead>
                 <tr className="bg-canvas">
                   {["Trip", "Purpose", "Route", "Dates", "Budget", "Approver", "Status", ""].map((h, i) => (
@@ -130,6 +130,9 @@ export const TravelExpenses = () => {
           <div className="py-3.5 px-5 border-b border-b-border">
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">All expenses</div>
           </div>
+          {/* Expense rows scroll sideways on narrow screens instead of squeezing. */}
+          <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
           {EXPENSES.map((e, i, arr) => {
             const catIcon = {
               "Flight": Plane, "Hotel": Hotel, "Meals": UtensilsCrossed,
@@ -161,6 +164,8 @@ export const TravelExpenses = () => {
               </div>
             );
           })}
+          </div>
+          </div>
         </Card>
       )}
 
@@ -168,8 +173,8 @@ export const TravelExpenses = () => {
       {tab === "vouchers" && (
         <>
           <Card padding={22} className="mb-5 text-white border-0" style={{ background: `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)` }}>
-            <div className="grid grid-cols-[1.5fr_1fr_1fr] gap-6 items-center">
-              <div>
+            <div className="grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-4 sm:gap-6 items-center">
+              <div className="col-span-2 md:col-span-1">
                 <div className="text-[11px] text-a tracking-[2px] uppercase font-extrabold mb-1">Reimbursement vouchers</div>
                 <div className="text-[22px] font-extrabold tracking-[-0.5px]">₹ {VOUCHERS.reduce((s, v) => s + v.total, 0).toLocaleString("en-IN")} received</div>
                 <div className="text-[12px] opacity-85 mt-1">Across {VOUCHERS.length} vouchers this FY</div>
@@ -190,6 +195,9 @@ export const TravelExpenses = () => {
               <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Issued vouchers</div>
               <Btn variant="ghost" size="sm" icon={Download}>Export</Btn>
             </div>
+            {/* Voucher rows scroll sideways on narrow screens instead of squeezing. */}
+            <div className="overflow-x-auto">
+            <div className="min-w-[860px]">
             {VOUCHERS.map((v, i, arr) => (
               <div key={v.id} className={`grid grid-cols-[110px_100px_110px_110px_1fr_110px_100px] gap-3.5 items-center py-4 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
                 <div className="flex items-center gap-2.25">
@@ -212,6 +220,8 @@ export const TravelExpenses = () => {
                 </div>
               </div>
             ))}
+            </div>
+            </div>
           </Card>
         </>
       )}
@@ -219,7 +229,7 @@ export const TravelExpenses = () => {
       {/* Voucher generation modal */}
       {showVoucherModal && selectedTrip && (
         <div className="fixed inset-0 bg-[rgba(15,23,42,0.5)] flex items-center justify-center z-100 p-5" onClick={() => setShowVoucherModal(false)}>
-          <div onClick={e => e.stopPropagation()} className="w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+          <div onClick={e => e.stopPropagation()} className="w-full max-w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
             {/* Header */}
             <div className="py-6 px-7 text-white rounded-[16px_16px_0_0] relative" style={{ background: `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)` }}>
               <button onClick={() => setShowVoucherModal(false)} className="absolute top-4 right-4 bg-[rgba(255,255,255,0.15)] border-0 w-8 h-8 rounded-lg text-white cursor-pointer flex items-center justify-center">

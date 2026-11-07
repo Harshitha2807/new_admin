@@ -96,7 +96,7 @@ export const RequestLeaveModal = ({ onClose, onSubmit }: {
 
   return (
     <div className="fixed inset-0 bg-[rgba(15,23,42,0.5)] flex items-center justify-center z-100 p-5" onClick={onClose}>
-      <form onSubmit={submit} onClick={e => e.stopPropagation()} className="w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+      <form onSubmit={submit} onClick={e => e.stopPropagation()} className="w-full max-w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
         {/* Header */}
         <div className="py-5 px-7 text-white rounded-[16px_16px_0_0] relative" style={{ background: `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)` }}>
           <button type="button" onClick={onClose} className="absolute top-4 right-4 bg-[rgba(255,255,255,0.15)] border-0 w-8 h-8 rounded-lg text-white cursor-pointer flex items-center justify-center">
@@ -112,7 +112,7 @@ export const RequestLeaveModal = ({ onClose, onSubmit }: {
           {/* Leave type */}
           <div>
             <label className={labelCls}>Leave Type</label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {KINDS.map(k => {
                 const Icon = k.icon;
                 const on = kind === k.id;
@@ -129,7 +129,7 @@ export const RequestLeaveModal = ({ onClose, onSubmit }: {
           </div>
 
           {/* Dates */}
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className={labelCls}>From</label>
               <input type="date" value={from} onChange={e => { setFrom(e.target.value); if (e.target.value > to) setTo(e.target.value); }} className={inputCls}/>
