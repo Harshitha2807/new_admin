@@ -23,7 +23,7 @@ export const ManagementOverview = () => {
     />
 
     {/* KPI row */}
-    <div className="grid grid-cols-4 gap-4 mb-4.5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4.5">
       <StatKPI
         label="Total Employees"
         value="128"
@@ -56,7 +56,7 @@ export const ManagementOverview = () => {
     </div>
 
     {/* Schedules + Employment Status */}
-    <div className="grid grid-cols-[1.4fr_1fr] gap-4.5 mb-4.5">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-4.5 mb-4.5">
       <Card padding={22}>
         <div className="flex justify-between items-center mb-3.5">
           <div>
@@ -118,7 +118,7 @@ export const ManagementOverview = () => {
     </div>
 
     {/* Pending leave approvals + quick actions */}
-    <Card padding={0} className="mb-4.5">
+    <Card padding={0} className="mb-4.5 overflow-x-auto">
       <div className="py-4 px-5 border-b border-b-border flex justify-between items-center">
         <div>
           <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Pending leave requests</div>
@@ -127,7 +127,7 @@ export const ManagementOverview = () => {
         <button onClick={() => setActive("leave")} className="bg-transparent border-0 text-g-deep text-[12px] font-bold cursor-pointer flex items-center gap-1">View all <ArrowRight size={13}/></button>
       </div>
       {LEAVE_REQUESTS.slice(0, 4).map((r, i, arr) => (
-        <div key={r.id} className={`grid grid-cols-[40px_1.4fr_100px_1.4fr_100px_150px] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
+        <div key={r.id} className={`min-w-[760px] grid grid-cols-[40px_1.4fr_100px_1.4fr_100px_150px] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
           <Avatar name={r.emp} size={32}/>
           <div>
             <div className="text-[13px] font-bold text-ink">{r.emp}</div>

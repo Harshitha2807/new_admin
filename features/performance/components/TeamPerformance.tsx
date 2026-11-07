@@ -18,7 +18,7 @@ export const TeamPerformance = () => (
     />
 
     {/* Points KPIs */}
-    <div className="grid grid-cols-4 gap-4 mb-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-5">
       <StatKPI label="Avg points · org" value="2,418" trend="+6.2% MoM" sub="October average"/>
       <StatKPI label="Top performer"    value="3,184" trend="Priya Krishnan" sub="Project Execution"/>
       <StatKPI label="High performers"   value={LEADERBOARD.filter(e => e.points> 2500).length} trend="above 2,500 points" sub="of 128 employees"/>
@@ -55,19 +55,19 @@ export const TeamPerformance = () => (
 
     {/* LEADERBOARD */}
     <Card padding={0}>
-      <div className="py-4.5 px-6 border-b border-b-border flex justify-between items-center">
+      <div className="py-4.5 px-4 sm:px-6 border-b border-b-border flex flex-wrap gap-3 justify-between items-center">
         <div>
           <div className="text-[11px] text-a tracking-[2px] uppercase font-extrabold mb-1">October 2026</div>
           <div className="text-[20px] font-extrabold text-ink tracking-[-0.5px]">Leaderboard</div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Btn variant="ghost" size="sm">All departments</Btn>
           <Btn variant="ghost" size="sm">This month</Btn>
         </div>
       </div>
 
       {/* Top 3 podium */}
-      <div className="px-6 pt-7 pb-5 grid grid-cols-[1fr_1.2fr_1fr] gap-4 items-end" style={{ background: `linear-gradient(180deg, ${T.gBg} 0%, ${T.paper} 100%)` }}>
+      <div className="px-3 sm:px-6 pt-7 pb-5 grid grid-cols-[1fr_1.2fr_1fr] gap-2 sm:gap-4 items-end" style={{ background: `linear-gradient(180deg, ${T.gBg} 0%, ${T.paper} 100%)` }}>
         {/* 2nd */}
         <div className="text-center">
           <div className="relative inline-block mb-2.5">
@@ -76,7 +76,7 @@ export const TeamPerformance = () => (
           </div>
           <div className="text-[13px] font-bold text-ink">{LEADERBOARD[1].name}</div>
           <div className="text-[10.5px] text-ink-3 mt-0.5">{LEADERBOARD[1].dept}</div>
-          <div className="mt-2.5 py-2.5 px-3.5 bg-paper border border-border rounded-[10px] text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[1].points.toLocaleString()}</div>
+          <div className="mt-2.5 py-2 px-2 sm:py-2.5 sm:px-3.5 bg-paper border border-border rounded-[10px] text-[14px] sm:text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[1].points.toLocaleString()}</div>
         </div>
 
         {/* 1st */}
@@ -88,7 +88,7 @@ export const TeamPerformance = () => (
           </div>
           <div className="text-[15px] font-extrabold text-ink">{LEADERBOARD[0].name}</div>
           <div className="text-[11px] text-ink-3 mt-0.5">{LEADERBOARD[0].dept}</div>
-          <div className="mt-2.5 py-3 px-4 rounded-[10px] text-white text-[22px] font-extrabold font-mono tracking-[-0.6px]" style={{ background: `linear-gradient(135deg, ${T.a}, ${T.aDark})` }}>{LEADERBOARD[0].points.toLocaleString()}</div>
+          <div className="mt-2.5 py-2.5 px-2 sm:py-3 sm:px-4 rounded-[10px] text-white text-[16px] sm:text-[22px] font-extrabold font-mono tracking-[-0.6px]" style={{ background: `linear-gradient(135deg, ${T.a}, ${T.aDark})` }}>{LEADERBOARD[0].points.toLocaleString()}</div>
         </div>
 
         {/* 3rd */}
@@ -99,11 +99,13 @@ export const TeamPerformance = () => (
           </div>
           <div className="text-[13px] font-bold text-ink">{LEADERBOARD[2].name}</div>
           <div className="text-[10.5px] text-ink-3 mt-0.5">{LEADERBOARD[2].dept}</div>
-          <div className="mt-2.5 py-2.5 px-3.5 bg-paper border border-border rounded-[10px] text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[2].points.toLocaleString()}</div>
+          <div className="mt-2.5 py-2 px-2 sm:py-2.5 sm:px-3.5 bg-paper border border-border rounded-[10px] text-[14px] sm:text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[2].points.toLocaleString()}</div>
         </div>
       </div>
 
-      <div>
+      {/* Rest of leaderboard: scrolls sideways on narrow screens instead of squeezing. */}
+      <div className="overflow-x-auto">
+      <div className="min-w-[640px]">
         <div className="py-3 px-6 bg-canvas border-t border-t-border border-b border-b-border text-[10.5px] text-ink-3 font-extrabold tracking-[1.4px] uppercase grid grid-cols-[60px_2fr_1fr_100px_90px_90px] gap-3">
           <div>Rank</div>
           <div>Employee</div>
@@ -132,6 +134,7 @@ export const TeamPerformance = () => (
             <div className="text-right text-[13px] font-bold text-a font-mono">🏆 {e.badges}</div>
           </div>
         ))}
+      </div>
       </div>
     </Card>
   </div>

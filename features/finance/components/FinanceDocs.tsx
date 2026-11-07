@@ -25,7 +25,7 @@ export const FinanceDocs = () => {
         title="Invoices & Proposals"
         sub="Client billing, outstanding dues, and sales pipeline documents"
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" icon={Download}>Export</Btn>
             <Btn variant="primary" icon={Plus}>{tab === "invoices" ? "New invoice" : "New proposal"}</Btn>
           </div>
@@ -33,7 +33,7 @@ export const FinanceDocs = () => {
       />
 
       {/* Tab switcher */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex flex-wrap gap-2 mb-5">
         {[
           { id: "invoices",  label: "Invoices",   icon: FileCheck2, n: INVOICES.length },
           { id: "proposals", label: "Proposals",  icon: Briefcase,  n: PROPOSALS.length },
@@ -51,7 +51,7 @@ export const FinanceDocs = () => {
 
       {tab === "invoices" && (
         <>
-          <div className="grid grid-cols-4 gap-3.5 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
             <StatKPI label="Total billed (FY)" value={`₹${(invTotal/10000000).toFixed(2)}Cr`} trend="7 invoices this quarter" sub=""/>
             <StatKPI label="Paid" value={`₹${(invPaid/10000000).toFixed(2)}Cr`} trend={`${INVOICES.filter(i => i.status === "Paid").length} invoices received`}/>
             <StatKPI label="Outstanding" value={`₹${(invOutstanding/10000000).toFixed(2)}Cr`} trend={`${INVOICES.filter(i => i.status === "Sent").length} within due date`}/>
@@ -66,7 +66,7 @@ export const FinanceDocs = () => {
               </div>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+              <table className="w-full font-sans border-collapse">
                 <thead>
                   <tr className="bg-canvas">
                     {["Invoice", "Client", "Project", "Issued", "Due", "Amount", "Status", ""].map((h, i) => (
@@ -123,7 +123,7 @@ export const FinanceDocs = () => {
 
       {tab === "proposals" && (
         <>
-          <div className="grid grid-cols-4 gap-3.5 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
             <StatKPI label="Active proposals" value={propActive.length} trend={`₹${(propActiveValue/10000000).toFixed(1)}Cr pipeline value`}/>
             <StatKPI label="Won (FY)" value={`₹${(propWon/10000000).toFixed(2)}Cr`} trend={`${PROPOSALS.filter(p => p.status === "Won").length} proposal won`}/>
             <StatKPI label="Win rate" value={`${winRate}%`} trend="Last 10 deals" sub=""/>
@@ -132,7 +132,7 @@ export const FinanceDocs = () => {
 
           <Card padding={0}>
             <div className="overflow-x-auto">
-              <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+              <table className="w-full font-sans border-collapse">
                 <thead>
                   <tr className="bg-canvas">
                     {["Proposal", "Client", "Stage", "Deal value", "Sent / Expires", "Status", ""].map((h, i) => (

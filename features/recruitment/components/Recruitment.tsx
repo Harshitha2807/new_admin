@@ -27,7 +27,7 @@ export const Recruitment = () => {
         title="Recruitment"
         sub={`${APPLICANTS.length} active applicants · ${OPEN_ROLES.length} open positions · live from careers page`}
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" icon={ExternalLink}>Open Google Sheet</Btn>
             <Btn variant="primary" icon={Plus}>New requisition</Btn>
           </div>
@@ -36,9 +36,9 @@ export const Recruitment = () => {
 
       {/* Google Sheet sync status */}
       <Card padding={0} className="mb-5 border border-[#D2E3FC]" style={{ background: `linear-gradient(90deg, #E8F0FE 0%, ${T.paper} 60%)` }}>
-        <div className="py-3.5 px-5 flex items-center gap-3.5">
+        <div className="py-3.5 px-4 sm:px-5 flex flex-wrap items-center gap-3.5">
           {/* Google Sheets icon */}
-          <div className="w-10.5 h-10.5 rounded-[10px] bg-[#0F9D58] text-white flex items-center justify-center font-extrabold text-[11px] tracking-[1px]">
+          <div className="w-10.5 h-10.5 shrink-0 rounded-[10px] bg-[#0F9D58] text-white flex items-center justify-center font-extrabold text-[11px] tracking-[1px]">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="rgba(255,255,255,0.15)"/>
               <path d="M14 2v6h6" stroke="currentColor" fill="none" strokeWidth="1.5"/>
@@ -48,12 +48,12 @@ export const Recruitment = () => {
               <line x1="12" y1="11" x2="12" y2="18" stroke="#0F9D58" strokeWidth="0.8"/>
             </svg>
           </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
               <div className="text-[13.5px] font-bold text-ink">Elements Energy · Careers Applications</div>
               <Pill tone="ok" size="sm" dot>Synced</Pill>
             </div>
-            <div className="text-[11.5px] text-ink-3 mt-0.5 flex items-center gap-2.5">
+            <div className="text-[11.5px] text-ink-3 mt-0.5 flex flex-wrap items-center gap-x-2.5 gap-y-0.5">
               <LinkIcon size={10}/>docs.google.com/.../careers-applications
               <span>·</span>
               <span>Last sync: 2 min ago</span>
@@ -66,7 +66,7 @@ export const Recruitment = () => {
       </Card>
 
       {/* KPIs */}
-      <div className="grid grid-cols-4 gap-3.5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
         <StatKPI label="Total applicants" value={APPLICANTS.length} trend={`+${APPLICANTS.filter(a => a.applied === "Today").length} today`} sub="146 this quarter"/>
         <StatKPI label="New (uncreened)" value={APPLICANTS.filter(a => a.status === "new").length} trend="awaiting screening" trendColor="amber"/>
         <StatKPI label="In interview" value={APPLICANTS.filter(a => ["Interview 1", "Interview 2", "Final"].includes(a.stage)).length} trend="active pipeline"/>
@@ -74,14 +74,14 @@ export const Recruitment = () => {
       </div>
 
       {/* Open roles + sources */}
-      <div className="grid grid-cols-[1.5fr_1fr] gap-4.5 mb-5">
-        <Card padding={0}>
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-4.5 mb-5">
+        <Card padding={0} className="overflow-x-auto">
           <div className="py-3.5 px-5 border-b border-b-border">
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Open positions</div>
             <div className="text-[11.5px] text-ink-3 mt-0.5">{OPEN_ROLES.length} roles · {OPEN_ROLES.reduce((s, r) => s + r.applicants, 0)} candidates across all</div>
           </div>
           {OPEN_ROLES.map((o, i, arr) => (
-            <div key={i} className={`grid grid-cols-[2fr_1fr_1fr_1fr] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
+            <div key={i} className={`min-w-[560px] grid grid-cols-[2fr_1fr_1fr_1fr] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
               <div>
                 <div className="text-[13.5px] font-bold text-ink">{o.title}</div>
                 <div className="text-[11px] text-ink-3 mt-0.75 tracking-[1.2px] uppercase font-bold">{o.dept}</div>
@@ -123,12 +123,12 @@ export const Recruitment = () => {
 
       {/* Applicants table — Google Sheet style */}
       <Card padding={0}>
-        <div className="py-4 px-5 border-b border-b-border flex justify-between items-center">
+        <div className="py-4 px-5 border-b border-b-border flex flex-wrap gap-3 justify-between items-center">
           <div>
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Applicants · from careers page</div>
             <div className="text-[11.5px] text-ink-3 mt-0.5">Rows pulled from Google Sheet · each submission creates a row</div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" size="sm" icon={Download}>Export</Btn>
             <Btn variant="ghost" size="sm" icon={Filter}>Filter</Btn>
           </div>
@@ -154,7 +154,7 @@ export const Recruitment = () => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+          <table className="w-full font-sans border-collapse">
             <thead>
               <tr className="bg-canvas">
                 {["ID", "Applicant", "Role", "Source", "Experience", "Location", "Stage", "Applied", ""].map((h, i) => (

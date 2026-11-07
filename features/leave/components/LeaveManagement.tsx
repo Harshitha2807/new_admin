@@ -23,7 +23,7 @@ export const LeaveManagement = () => {
       />
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3.5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
         <StatKPI label="Pending" value={LEAVE_REQUESTS.length} trend="awaiting your decision" trendColor="amber"/>
         <StatKPI label="Approved (7d)" value="18" trend="+12% vs last week"/>
         <StatKPI label="Declined (7d)" value="2" trend="with reasons shared"/>
@@ -31,7 +31,7 @@ export const LeaveManagement = () => {
       </div>
 
       {/* Filter */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         {[
           { id: "pending",  label: "Pending",   n: LEAVE_REQUESTS.length },
           { id: "approved", label: "Approved",  n: LEAVE_HISTORY.filter(h => h.status === "Approved").length },
@@ -46,11 +46,11 @@ export const LeaveManagement = () => {
       </div>
 
       {filter === "pending" && (
-        <div className={`grid gap-4.5 ${(selected ? "grid-cols-[1.5fr_1fr]" : "grid-cols-[1fr]")}`}>
+        <div className={`grid gap-4.5 ${(selected ? "grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "grid-cols-1")}`}>
           {/* Request list */}
-          <Card padding={0}>
+          <Card padding={0} className="overflow-x-auto">
             {LEAVE_REQUESTS.map((r, i, arr) => (
-              <div key={r.id} onClick={() => setSelected(r)} className={`py-4.5 px-5 cursor-pointer ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")} ${(selected?.id === r.id ? "bg-g-mist" : "bg-paper")} ${(selected?.id === r.id ? "border-l-3 border-l-g" : "border-l-3 border-l-transparent")}`}>
+              <div key={r.id} onClick={() => setSelected(r)} className={`min-w-[760px] py-4.5 px-5 cursor-pointer ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")} ${(selected?.id === r.id ? "bg-g-mist" : "bg-paper")} ${(selected?.id === r.id ? "border-l-3 border-l-g" : "border-l-3 border-l-transparent")}`}>
                 <div className="grid grid-cols-[40px_1.4fr_100px_1.4fr_100px_150px] gap-3.5 items-center">
                   <Avatar name={r.emp} size={34}/>
                   <div>
@@ -102,7 +102,7 @@ export const LeaveManagement = () => {
               </div>
 
               <div className="p-6">
-                <div className="grid grid-cols-[1fr_1fr] gap-3 mb-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
                   {[
                     ["Leave type",  selected.type],
                     ["Duration",     `${selected.days} day${selected.days> 1 ? "s" : ""}`],
@@ -139,11 +139,11 @@ export const LeaveManagement = () => {
       )}
 
       {filter !== "pending" && (
-        <Card padding={0}>
+        <Card padding={0} className="overflow-x-auto">
           {LEAVE_HISTORY
             .filter(h => filter === "all" || (filter === "approved" && h.status === "Approved") || (filter === "declined" && h.status === "Declined"))
             .map((h, i, arr) => (
-              <div key={h.id} className={`grid grid-cols-[90px_1.4fr_100px_1.4fr_100px_1fr] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
+              <div key={h.id} className={`min-w-[720px] grid grid-cols-[90px_1.4fr_100px_1.4fr_100px_1fr] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
                 <span className="font-mono text-[11.5px] text-ink-3 font-bold">{h.id}</span>
                 <div className="flex items-center gap-2.5">
                   <Avatar name={h.emp} size={28}/>
