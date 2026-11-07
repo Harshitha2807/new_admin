@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,6 +20,9 @@ export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMen
   const { viewer } = config;
   const pathname = usePathname();
   const [query, setQuery] = useState("");
+  // Below laptop size the search box is hidden behind a search button; this tracks whether it is open.
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -28,7 +31,14 @@ export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMen
   const find = useFindInPage(() => document.querySelector("main"), query);
 
   // A new page starts with an empty search.
-  useEffect(() => setQuery(""), [pathname]);
+  useEffect(() => { setQuery(""); setSearchOpen(false); }, [pathname]);
+  // Put the cursor in the search box as soon as it is opened on a small screen.
+  useEffect(() => { if (searchOpen) searchInputRef.current?.focus(); }, [searchOpen]);
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setQuery("");
+  };
   useEffect(() => {
     if (!showPasswordForm) return;
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -56,20 +66,31 @@ export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMen
   };
 
   return (
-    <header className="h-15 sm:h-17.5 shrink-0 bg-paper border-b border-border px-4 sm:px-6 lg:px-8 flex items-center gap-2 sm:gap-3 lg:gap-5">
+    <header className="relative h-15 sm:h-17.5 shrink-0 bg-paper border-b border-border px-3 sm:px-6 lg:px-8 flex items-center gap-1.5 sm:gap-3 lg:gap-5">
       <button type="button" aria-label="Open menu" onClick={onMenuClick} className={cn(ICON_BTN, "lg:hidden")}>
         <Menu size={18}/>
       </button>
 
-      <div className="relative flex-1 max-w-105 hidden lg:block">
+      {/* Search. Laptop and up: always shown inline. Smaller screens: hidden until the search
+          button is tapped, then it covers the whole top bar with a close button. */}
+      <div className={cn(
+        searchOpen
+          ? "absolute inset-0 z-20 flex items-center gap-2 bg-paper px-3 sm:px-6 lg:static lg:z-auto lg:block lg:flex-1 lg:max-w-105 lg:p-0 lg:bg-transparent"
+          : "hidden lg:block flex-1 max-w-105",
+      )}>
+      <div className="relative flex-1">
         <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3.5">
           <Search size={16} className="text-mute"/>
         </div>
         <input
+          ref={searchInputRef}
           type="search"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          onKeyDown={find.onKeyDown}
+          onKeyDown={e => {
+            if (e.key === "Escape" && searchOpen) { closeSearch(); return; }
+            find.onKeyDown(e);
+          }}
           placeholder={config.searchPlaceholder}
           className="block w-full py-2.5 ps-10 pe-16 bg-canvas border border-border rounded-[10px] text-[13.5px] text-ink placeholder:text-mute focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent"
         />
@@ -79,8 +100,18 @@ export const TopBar = ({ config, onMenuClick }: { config: DashboardConfig; onMen
           </span>
         )}
       </div>
+      {searchOpen && (
+        <button type="button" aria-label="Close search" onClick={closeSearch} className={cn(ICON_BTN, "lg:hidden")}>
+          <X size={16}/>
+        </button>
+      )}
+      </div>
 
       <div className="flex-1"/>
+
+      <button type="button" aria-label="Search" title="Search" onClick={() => setSearchOpen(true)} className={cn(ICON_BTN, "lg:hidden")}>
+        <Search size={16}/>
+      </button>
 
       {config.environment && <span className="hidden md:inline-flex"><Pill tone="green" dot>{config.environment}</Pill></span>}
 
