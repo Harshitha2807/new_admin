@@ -10,7 +10,7 @@ import { Btn, Card, PageHeader } from "@/shared/ui";
 export const Reports = () => (
   <div>
     <PageHeader title="Reports" sub="Scheduled, on-demand, and compliance reporting" action={<Btn variant="primary" icon={Plus}>Generate report</Btn>}/>
-    <div className="grid grid-cols-3 gap-3.5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
       {[
         { icon: BarChart3, label: "Energy performance", count: 12, tone: T.p },
         { icon: Leaf,       label: "Emissions & BRSR",   count: 8,  tone: T.gDeep },

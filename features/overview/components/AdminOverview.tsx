@@ -31,7 +31,7 @@ export const AdminOverview = () => {
       />
 
       {/* Hero KPI row — pipeline value & MRR removed */}
-      <div className="grid grid-cols-4 gap-4 mb-4.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4.5">
         <Card padding={18} className="text-white border-0 relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${T.p} 0%, ${T.pDeep} 100%)` }}>
           <div className="absolute -right-7.5 -top-7.5 w-30 h-30 rounded-full" style={{ background: `radial-gradient(circle, ${T.a}40 0%, transparent 70%)` }}/>
           <div className="relative">
@@ -52,7 +52,7 @@ export const AdminOverview = () => {
       </div>
 
       {/* Metrics strip — removed critical alerts, kept operational */}
-      <div className="grid grid-cols-3 gap-4 mb-4.5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4.5">
         <Card padding={16}>
           <div className="flex justify-between items-center">
             <div>
@@ -92,7 +92,7 @@ export const AdminOverview = () => {
       </div>
 
       {/* Projects + Pipeline */}
-      <div className="grid grid-cols-[1.3fr_1fr] gap-4.5 mb-4.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-4.5 mb-4.5">
         <Card padding={22}>
           <div className="flex justify-between mb-3.5">
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Active projects</div>
@@ -155,7 +155,7 @@ export const AdminOverview = () => {
 
       {/* Client status table */}
       <Card padding={0}>
-        <div className="py-4 px-5.5 border-b border-b-border flex justify-between items-center">
+        <div className="py-4 px-4 sm:px-5.5 border-b border-b-border flex flex-wrap gap-2 justify-between items-center">
           <div>
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Client portfolio</div>
             <div className="text-[11.5px] text-ink-3 mt-0.5">Live sites · performance snapshot</div>
@@ -165,7 +165,7 @@ export const AdminOverview = () => {
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+          <table className="w-full font-sans border-collapse">
             <thead>
               <tr className="bg-canvas">
                 {["Client", "Industry", "Location", "Devices", "Energy", "Savings", "Users", "Status"].map((h, i) => (
