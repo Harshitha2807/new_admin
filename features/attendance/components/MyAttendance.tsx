@@ -28,14 +28,14 @@ export const MyAttendance = () => (
       </div>
     </div>
 
-    <div className="grid grid-cols-4 gap-4 mb-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-5">
       <StatKPI label="Present (Oct)" value="4" trend="of 4 working days" icon={CheckCircle2}/>
       <StatKPI label="WFH" value="1" trend="within policy · max 8/mo" icon={Timer}/>
       <StatKPI label="Avg check-in" value="09:12" trend="Target 09:30" icon={Sunrise}/>
       <StatKPI label="Avg hours" value="8h 34m" trend="above target" icon={Timer}/>
     </div>
 
-    <div className="grid grid-cols-[2fr_1fr] gap-4.5">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4.5">
       <Card padding={22}>
         <div className="flex justify-between items-center mb-4">
           <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">October 2026</div>

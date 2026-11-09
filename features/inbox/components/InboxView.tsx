@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { Check, CheckCheck, Cloud, FolderOpen, ListChecks, MessageSquare, MessageSquarePlus, Mic, Paperclip, Search, Send, Users, X as XIcon } from "lucide-react";
+import { ArrowLeft, Check, CheckCheck, Cloud, FolderOpen, ListChecks, MessageSquare, MessageSquarePlus, Mic, Paperclip, Search, Send, Users, X as XIcon } from "lucide-react";
 import { useTheme } from "@/shared/context/DashboardContext";
 import { useFindInPage } from "@/shared/lib/useFindInPage";
 import { Avatar } from "@/shared/ui";
@@ -43,6 +43,8 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
   const [findQuery, setFindQuery] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
   const [taskCount, setTaskCount] = useState(0);
+  // Phones show one panel at a time: the chat list, or the open chat (after tapping one).
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const threadRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,9 +91,9 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
 
   return (
     <div className="flex-1 min-h-0 bg-paper">
-      <div className="grid grid-cols-[320px_1fr] grid-rows-1 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)] grid-rows-1 h-full">
         {/* Chat list — left */}
-        <div className="border-r border-r-border bg-paper flex flex-col min-h-0">
+        <div className={`border-r border-r-border bg-paper flex-col min-h-0 ${mobileChatOpen ? "hidden md:flex" : "flex"}`}>
           {/* Signed-in user */}
           <div className="py-3.5 px-4 border-b border-b-border flex items-center gap-3">
             <Avatar name={user.name} size={38} tone="green"/>
@@ -116,7 +118,7 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
             {filteredChats.map(c => {
               const on = selected?.id === c.id;
               return (
-                <button key={c.id} onClick={() => setSelected(c)} className={`w-full flex items-center gap-3 py-3 px-4 border-0 border-l-3 cursor-pointer text-left font-sans ${(on ? "bg-g-mist border-l-g" : "bg-transparent border-l-transparent hover:bg-g-bg")}`}>
+                <button key={c.id} onClick={() => { setSelected(c); setMobileChatOpen(true); }} className={`w-full flex items-center gap-3 py-3 px-4 border-0 border-l-3 cursor-pointer text-left font-sans ${(on ? "bg-g-mist border-l-g" : "bg-transparent border-l-transparent hover:bg-g-bg")}`}>
                   {c.isGroup ? (
                     <div className="w-10.5 h-10.5 rounded-full bg-g-soft text-g-deep flex items-center justify-center shrink-0">
                       <Users size={18}/>
@@ -166,9 +168,12 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
 
         {/* Chat window — right */}
         {selected ? (
-          <div className="flex flex-col min-h-0 bg-g-bg">
+          <div className={`flex-col min-h-0 min-w-0 bg-g-bg ${mobileChatOpen ? "flex" : "hidden md:flex"}`}>
             {/* Chat header */}
-            <div className="py-3 px-5 bg-paper border-b border-b-border flex items-center gap-3">
+            <div className="py-3 px-3 sm:px-5 bg-paper border-b border-b-border flex items-center gap-2 sm:gap-3">
+              <button type="button" onClick={() => setMobileChatOpen(false)} aria-label="Back to chats" className="md:hidden w-8 h-8 shrink-0 rounded-lg border-0 bg-transparent cursor-pointer flex items-center justify-center hover:bg-canvas">
+                <ArrowLeft size={18} color={T.ink2}/>
+              </button>
               {selected.isGroup ? (
                 <div className="w-10 h-10 rounded-full bg-g-soft text-g-deep flex items-center justify-center">
                   <Users size={17}/>
@@ -176,14 +181,14 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
               ) : (
                 <Avatar name={selected.name} size={40} online={selected.online} tone={selected.tone}/>
               )}
-              <div className="flex-1">
-                <div className="text-[15px] font-extrabold text-ink tracking-[-0.2px]">{selected.name}</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[15px] font-extrabold text-ink tracking-[-0.2px] truncate">{selected.name}</div>
                 <div className={`text-[11.5px] mt-0.5 font-semibold ${(selected.online ? "text-g-deep" : "text-ink-3")}`}>
                   {selected.isGroup ? `${selected.members} members · ${groupOnlineCount} online` : selected.online ? "Online" : lastSeenLabel}
                 </div>
               </div>
               {findOpen ? (
-                <div className="flex items-center gap-2 bg-canvas border border-border rounded-full py-1.5 pl-3 pr-1.5 w-72">
+                <div className="flex items-center gap-2 bg-canvas border border-border rounded-full py-1.5 pl-3 pr-1.5 w-40 sm:w-56 lg:w-72 shrink-0">
                   <Search size={14} color={T.mute}/>
                   <input
                     autoFocus
@@ -206,10 +211,10 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
             </div>
 
             {/* Messages */}
-            <div ref={threadRef} className="flex-1 overflow-y-auto py-5 px-6 flex flex-col gap-2.5">
+            <div ref={threadRef} className="flex-1 overflow-y-auto py-4 px-3 sm:py-5 sm:px-6 flex flex-col gap-2.5">
               {thread.map((m, i) => (
                 <div key={i} className={`flex ${(m.me ? "justify-end" : "justify-start")}`}>
-                  <div className={`max-w-[65%] py-2.5 px-3.5 rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.06)] text-[14px] leading-[1.45] ${(m.me ? "bg-g text-white" : "bg-paper text-ink")}`}>
+                  <div className={`max-w-[85%] sm:max-w-[65%] py-2.5 px-3.5 rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.06)] text-[14px] leading-[1.45] ${(m.me ? "bg-g text-white" : "bg-paper text-ink")}`}>
                     <div>{m.text}</div>
                     <div className={`text-[10.5px] mt-1 flex items-center gap-1 ${(m.me ? "text-[rgba(255,255,255,0.8)]" : "text-ink-3")}`}>
                       {m.when}
@@ -237,7 +242,7 @@ export const InboxView = ({ chats, messages, user, showAwsAccess = false, initia
             </form>
           </div>
         ) : (
-          <div className="flex items-center justify-center bg-g-bg">
+          <div className="hidden md:flex items-center justify-center bg-g-bg">
             <div className="text-center">
               <MessageSquare size={48} color={T.mute} className="mx-auto mb-3"/>
               <div className="text-[15px] font-bold text-ink-2">Select a chat to start messaging</div>

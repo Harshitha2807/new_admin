@@ -33,7 +33,7 @@ export const MyLeave = () => {
     <div>
       <PageHeader title="Leave" sub="Balance, requests, and history" action={<Btn variant="primary" icon={Plus} onClick={() => setShowRequest(true)}>Request leave</Btn>}/>
 
-      <div className="grid grid-cols-4 gap-4 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-5">
         {LEAVES.map(l => (
           <DonutKPI key={l.code} label={l.name} used={l.used} total={l.total} color={l.color} unit={l.unit}/>
         ))}
@@ -43,6 +43,9 @@ export const MyLeave = () => {
         <div className="py-3.5 px-5 border-b border-b-border">
           <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Recent requests</div>
         </div>
+        {/* On narrow screens the request rows scroll sideways instead of squeezing. */}
+        <div className="overflow-x-auto">
+        <div className="min-w-[700px]">
         {requests.map((r, i, arr) => (
           <div key={r.id} className={`grid grid-cols-[90px_130px_1.5fr_80px_110px_100px] gap-3.5 items-center py-3.75 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
             <span className="font-mono text-[11.5px] text-ink-3 font-bold">{r.id}</span>
@@ -56,6 +59,8 @@ export const MyLeave = () => {
             <Btn variant="ghost" size="sm">View</Btn>
           </div>
         ))}
+        </div>
+        </div>
       </Card>
 
       {showRequest && <RequestLeaveModal onClose={() => setShowRequest(false)} onSubmit={handleSubmit}/>}

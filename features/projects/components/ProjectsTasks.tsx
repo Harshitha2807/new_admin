@@ -74,7 +74,7 @@ export const ProjectsTasks = () => {
       </Card>
 
       {/* Tab switcher */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex flex-wrap gap-2 mb-5">
         {[
           { id: "overview", label: "Projects",  icon: FolderKanban, n: PROJECTS.length },
           { id: "tasks",    label: "Tasks",     icon: CheckCircle2, n: TASKS.length },
@@ -161,6 +161,9 @@ export const ProjectsTasks = () => {
           </div>
 
           <Card padding={0}>
+            {/* Task rows scroll sideways on narrow screens instead of squeezing. */}
+            <div className="overflow-x-auto">
+            <div className="min-w-[860px]">
             {filteredTasks.map((t, i) => {
               const project = PROJECTS.find(p => p.id === t.project);
               const assignee = t.assignee === "me" ? ME : TEAM_MEMBERS.find(m => m.id === t.assignee);
@@ -194,6 +197,8 @@ export const ProjectsTasks = () => {
                 </div>
               );
             })}
+            </div>
+            </div>
           </Card>
         </>
       )}
@@ -201,7 +206,7 @@ export const ProjectsTasks = () => {
       {/* TIMELINE TAB */}
       {tab === "timeline" && (
         <Card padding={0} className="overflow-hidden">
-          <div className="py-4 px-5.5 border-b border-b-border flex justify-between items-center">
+          <div className="py-4 px-4 sm:px-5.5 border-b border-b-border flex flex-wrap gap-3 justify-between items-center">
             <div>
               <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Project timeline</div>
               <div className="text-[12px] text-ink-3 mt-0.5">Jul 2026 → Mar 2027 · milestones as diamonds</div>
@@ -212,6 +217,9 @@ export const ProjectsTasks = () => {
             </div>
           </div>
 
+          {/* The timeline chart scrolls sideways on narrow screens instead of squeezing. */}
+          <div className="overflow-x-auto">
+          <div className="min-w-[960px]">
           {/* Timeline header */}
           <div className="px-5.5 pt-3.5 pb-0 grid grid-cols-[280px_repeat(9,1fr)] gap-0.5 text-[10px] text-ink-3 font-extrabold tracking-[1.2px] uppercase">
             <div></div>
@@ -250,6 +258,8 @@ export const ProjectsTasks = () => {
                 </div>
               );
             })}
+          </div>
+          </div>
           </div>
         </Card>
       )}

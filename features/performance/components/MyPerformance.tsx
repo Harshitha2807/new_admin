@@ -26,34 +26,34 @@ export const MyPerformance = () => {
       {/* Hero: My points + rank */}
       <Card padding={0} className="mb-5 text-white border-0 overflow-hidden relative" style={{ background: `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)` }}>
         <div className="absolute -right-10 -top-10 w-55 h-55 rounded-full" style={{ background: `radial-gradient(circle, ${T.a}30 0%, transparent 70%)` }}/>
-        <div className="p-7 relative grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 items-center">
-          <div>
+        <div className="p-5 sm:p-7 relative grid grid-cols-3 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-4 sm:gap-6 items-center">
+          <div className="col-span-3 md:col-span-1">
             <div className="text-[11px] text-a tracking-[2px] uppercase font-extrabold mb-1.5">Your performance · October</div>
-            <div className="text-[36px] font-extrabold tracking-[-1.2px] font-mono leading-none">{totalEarned.toLocaleString()}</div>
+            <div className="text-[30px] sm:text-[36px] font-extrabold tracking-[-1.2px] font-mono leading-none">{totalEarned.toLocaleString()}</div>
             <div className="text-[13px] opacity-90 mt-1.5">of {totalMax.toLocaleString()} possible points · <strong className="text-a">{pct}%</strong></div>
           </div>
           <div>
             <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">Rank</div>
-            <div className="text-[28px] font-extrabold mt-1 font-mono flex items-center gap-1.5">
+            <div className="text-[22px] sm:text-[28px] font-extrabold mt-1 font-mono flex items-center gap-1.5">
               #{ME.rank}<Medal size={22} color={T.a}/>
             </div>
             <div className="text-[11px] opacity-80 mt-0.5">of 324 employees</div>
           </div>
           <div>
             <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">This week</div>
-            <div className="text-[28px] font-extrabold mt-1 font-mono text-a">+184</div>
+            <div className="text-[22px] sm:text-[28px] font-extrabold mt-1 font-mono text-a">+184</div>
             <div className="text-[11px] opacity-80 mt-0.5">points earned</div>
           </div>
           <div>
             <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">Streak</div>
-            <div className="text-[28px] font-extrabold mt-1 font-mono">{ME.streak}d 🔥</div>
+            <div className="text-[22px] sm:text-[28px] font-extrabold mt-1 font-mono">{ME.streak}d 🔥</div>
             <div className="text-[11px] opacity-80 mt-0.5">best: 24 days</div>
           </div>
         </div>
       </Card>
 
       {/* Points breakdown + history */}
-      <div className="grid grid-cols-[1.3fr_1fr] gap-4.5 mb-5">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-4.5 mb-5">
         <Card padding={22}>
           <div className="flex justify-between items-center mb-4">
             <div>
@@ -136,7 +136,7 @@ export const MyPerformance = () => {
 
       {/* LEADERBOARD */}
       <Card padding={0}>
-        <div className="py-4.5 px-6 border-b border-b-border flex justify-between items-center">
+        <div className="py-4.5 px-4 sm:px-6 border-b border-b-border flex flex-wrap gap-3 justify-between items-center">
           <div>
             <div className="text-[11px] text-a tracking-[2px] uppercase font-extrabold mb-1">October 2026</div>
             <div className="text-[20px] font-extrabold text-ink tracking-[-0.5px]">Leaderboard</div>
@@ -148,7 +148,7 @@ export const MyPerformance = () => {
         </div>
 
         {/* Top 3 podium */}
-        <div className="px-6 pt-7 pb-5 grid grid-cols-[1fr_1.2fr_1fr] gap-4 items-end" style={{ background: `linear-gradient(180deg, ${T.gBg} 0%, ${T.paper} 100%)` }}>
+        <div className="px-3 sm:px-6 pt-7 pb-5 grid grid-cols-[1fr_1.2fr_1fr] gap-2 sm:gap-4 items-end" style={{ background: `linear-gradient(180deg, ${T.gBg} 0%, ${T.paper} 100%)` }}>
           {/* 2nd place */}
           <div className="text-center">
             <div className="relative inline-block mb-2.5">
@@ -157,7 +157,7 @@ export const MyPerformance = () => {
             </div>
             <div className="text-[13px] font-bold text-ink">{LEADERBOARD[1].name}</div>
             <div className="text-[10.5px] text-ink-3 mt-0.5">{LEADERBOARD[1].dept}</div>
-            <div className="mt-2.5 py-2.5 px-3.5 bg-paper border border-border rounded-[10px] text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[1].points.toLocaleString()}</div>
+            <div className="mt-2.5 py-2 px-2 sm:py-2.5 sm:px-3.5 bg-paper border border-border rounded-[10px] text-[14px] sm:text-[18px] font-extrabold text-ink font-mono tracking-[-0.5px]">{LEADERBOARD[1].points.toLocaleString()}</div>
           </div>
 
           {/* 1st place */}
@@ -169,7 +169,7 @@ export const MyPerformance = () => {
             </div>
             <div className="text-[15px] font-extrabold text-ink">{LEADERBOARD[0].name}</div>
             <div className="text-[11px] text-ink-3 mt-0.5">{LEADERBOARD[0].dept}</div>
-            <div className="mt-2.5 py-3 px-4 rounded-[10px] text-white text-[22px] font-extrabold font-mono tracking-[-0.6px]" style={{ background: `linear-gradient(135deg, ${T.a}, ${T.aDark})` }}>{LEADERBOARD[0].points.toLocaleString()}</div>
+            <div className="mt-2.5 py-2.5 px-2 sm:py-3 sm:px-4 rounded-[10px] text-white text-[16px] sm:text-[22px] font-extrabold font-mono tracking-[-0.6px]" style={{ background: `linear-gradient(135deg, ${T.a}, ${T.aDark})` }}>{LEADERBOARD[0].points.toLocaleString()}</div>
           </div>
 
           {/* 3rd place — ME */}
@@ -182,12 +182,13 @@ export const MyPerformance = () => {
               {LEADERBOARD[2].name}{LEADERBOARD[2].isMe && <span className="ml-1 text-[9px] text-g-deep font-extrabold">(YOU)</span>}
             </div>
             <div className="text-[10.5px] text-ink-3 mt-0.5">{LEADERBOARD[2].dept}</div>
-            <div className={`mt-2.5 py-2.5 px-3.5 rounded-[10px] text-[18px] font-extrabold font-mono tracking-[-0.5px] ${(LEADERBOARD[2].isMe ? "bg-g-soft" : "bg-paper")} ${(LEADERBOARD[2].isMe ? "text-g-deep" : "text-ink")}`} style={{ border: `1px solid ${LEADERBOARD[2].isMe ? T.g : T.border}` }}>{LEADERBOARD[2].points.toLocaleString()}</div>
+            <div className={`mt-2.5 py-2 px-2 sm:py-2.5 sm:px-3.5 rounded-[10px] text-[14px] sm:text-[18px] font-extrabold font-mono tracking-[-0.5px] ${(LEADERBOARD[2].isMe ? "bg-g-soft" : "bg-paper")} ${(LEADERBOARD[2].isMe ? "text-g-deep" : "text-ink")}`} style={{ border: `1px solid ${LEADERBOARD[2].isMe ? T.g : T.border}` }}>{LEADERBOARD[2].points.toLocaleString()}</div>
           </div>
         </div>
 
-        {/* Rest of leaderboard */}
-        <div>
+        {/* Rest of leaderboard: scrolls sideways on narrow screens instead of squeezing. */}
+        <div className="overflow-x-auto">
+        <div className="min-w-[640px]">
           <div className="py-3 px-6 bg-canvas border-t border-t-border border-b border-b-border text-[10.5px] text-ink-3 font-extrabold tracking-[1.4px] uppercase grid grid-cols-[60px_2fr_1fr_100px_90px_90px] gap-3">
             <div>Rank</div>
             <div>Employee</div>
@@ -216,6 +217,7 @@ export const MyPerformance = () => {
               <div className="text-right text-[13px] font-bold text-a font-mono">🏆 {e.badges}</div>
             </div>
           ))}
+        </div>
         </div>
       </Card>
     </div>

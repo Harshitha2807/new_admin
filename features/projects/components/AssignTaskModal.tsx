@@ -45,8 +45,8 @@ const formatDue = (iso: string) => {
 };
 
 const SIZES = {
-  default: { width: "w-180", head: "py-5 px-7", heading: "text-[20px]", body: "p-7 gap-4", label: "text-[12px] mb-1.5", input: "py-2.25 px-3 text-[13px]", descRows: 3, remarkRows: 2 },
-  compact: { width: "w-120", head: "py-3.5 px-5", heading: "text-[16px]", body: "p-5 gap-3", label: "text-[11.5px] mb-1",   input: "py-1.75 px-2.5 text-[12.5px]", descRows: 2, remarkRows: 1 },
+  default: { width: "w-full max-w-180", head: "py-5 px-5 sm:px-7", heading: "text-[20px]", body: "p-5 sm:p-7 gap-4", label: "text-[12px] mb-1.5", input: "py-2.25 px-3 text-[13px]", descRows: 3, remarkRows: 2 },
+  compact: { width: "w-full max-w-120", head: "py-3.5 px-5", heading: "text-[16px]", body: "p-5 gap-3", label: "text-[11.5px] mb-1",   input: "py-1.75 px-2.5 text-[12.5px]", descRows: 2, remarkRows: 1 },
 };
 
 export const AssignTaskModal = ({ nextId, onClose, onCreate, compact = false, defaultAssignee = "" }: {
@@ -135,7 +135,7 @@ export const AssignTaskModal = ({ nextId, onClose, onCreate, compact = false, de
                 {ASSIGNEES.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
               </select>
             ) : (
-              <div className="grid grid-cols-2 gap-1.5 p-2.5 rounded-lg border border-border">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-2.5 rounded-lg border border-border">
                 {ASSIGNEES.map(a => (
                   <label key={a.id} className="flex items-center gap-2 py-1 px-1.5 text-[13px] text-ink cursor-pointer">
                     <input type="checkbox" checked={assignees.includes(a.id)} onChange={() => toggleAssignee(a.id)} className="w-4 h-4 cursor-pointer" style={{ accentColor: T.g }}/>
@@ -167,7 +167,7 @@ export const AssignTaskModal = ({ nextId, onClose, onCreate, compact = false, de
             <textarea value={description} onChange={e => setDescription(e.target.value)} rows={sz.descRows} className={`${inputCls} resize-y`}/>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className={labelCls}>Priority</label>
               <select value={pri} onChange={e => setPri(e.target.value)} className={inputCls}>

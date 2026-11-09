@@ -83,7 +83,7 @@ export const GenerateVoucherModal = ({ nextNumber, onClose, onGenerated }: {
 
   return (
     <div className="fixed inset-0 bg-[rgba(15,23,42,0.5)] flex items-center justify-center z-100 p-5" onClick={onClose}>
-      <form onSubmit={submit} onClick={e => e.stopPropagation()} className="w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+      <form onSubmit={submit} onClick={e => e.stopPropagation()} className="w-full max-w-160 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
         {/* Header */}
         <div className="py-5 px-7 text-white rounded-[16px_16px_0_0] relative" style={{ background: `linear-gradient(135deg, ${T.gDark} 0%, ${T.gDeep} 100%)` }}>
           <button type="button" onClick={onClose} className="absolute top-4 right-4 bg-[rgba(255,255,255,0.15)] border-0 w-8 h-8 rounded-lg text-white cursor-pointer flex items-center justify-center">
@@ -95,7 +95,7 @@ export const GenerateVoucherModal = ({ nextNumber, onClose, onGenerated }: {
 
         {/* Body */}
         <div className="p-6 flex flex-col gap-4">
-          <div className="grid grid-cols-3 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             <div>
               <label className={labelCls}>Voucher Number</label>
               <input value={number} onChange={e => setNumber(e.target.value)} className={inputCls}/>
@@ -112,7 +112,7 @@ export const GenerateVoucherModal = ({ nextNumber, onClose, onGenerated }: {
             </div>
           </div>
 
-          <div className="grid grid-cols-[2fr_1fr] gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-3.5">
             <div>
               <label className={labelCls}>Payee Name</label>
               <input value={payee} onChange={e => setPayee(e.target.value)} placeholder="Enter payee name" className={inputCls}/>
