@@ -34,14 +34,14 @@ export const CalendarView = ({ events, holidays, options: o }: CalendarViewProps
         title="Calendar"
         sub={o.subtitle}
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" icon={Download}>Export .ics</Btn>
             <Btn variant="primary" icon={Plus} onClick={() => setShowScheduleModal(true)}>Schedule meeting</Btn>
           </div>
         }
       />
 
-      <div className="grid grid-cols-[2fr_1fr] gap-4.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4.5">
         {/* Calendar */}
         <Card padding={22}>
           <div className="flex justify-between items-center mb-4.5">
@@ -52,13 +52,13 @@ export const CalendarView = ({ events, holidays, options: o }: CalendarViewProps
             </div>
           </div>
 
-          <div className="grid grid-cols-7 gap-1.5 mb-2">
+          <div className="grid grid-cols-7 gap-1 sm:gap-1.5 mb-2">
             {["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map((d, i) => (
               <div key={i} className="text-center text-[11px] text-mute font-bold py-1.5 px-0 tracking-[0.5px]">{d}</div>
             ))}
           </div>
 
-          <div className="grid grid-cols-7 gap-1.5">
+          <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
             {MONTH_DAYS.map((d, i) => {
               if (d === null) return <div key={i} className="aspect-square"/>;
               const isToday = d === 6;
@@ -67,8 +67,8 @@ export const CalendarView = ({ events, holidays, options: o }: CalendarViewProps
               const hasTeams = dayEvents.some(e => e.type === "teams");
               const hasOnsite = dayEvents.some(e => e.type === "onsite");
               return (
-                <div key={i} className={`aspect-square rounded-lg p-2 relative cursor-pointer ${(isToday ? "bg-g" : (isHoliday ? "bg-a-soft" : "bg-paper"))}`} style={{ border: `1px solid ${isToday ? T.g : isHoliday ? T.aSoft : T.border}` }}>
-                  <div className={`text-[13px] font-bold ${(isToday ? "text-white" : (isHoliday ? "text-a-dark" : "text-ink"))}`}>{d}</div>
+                <div key={i} className={`aspect-square rounded-lg p-1 sm:p-2 relative cursor-pointer ${(isToday ? "bg-g" : (isHoliday ? "bg-a-soft" : "bg-paper"))}`} style={{ border: `1px solid ${isToday ? T.g : isHoliday ? T.aSoft : T.border}` }}>
+                  <div className={`text-[11px] sm:text-[13px] font-bold ${(isToday ? "text-white" : (isHoliday ? "text-a-dark" : "text-ink"))}`}>{d}</div>
                   <div className="absolute bottom-1.25 left-1.5 flex gap-0.75">
                     {hasTeams && <span className={`w-1.5 h-1.5 rounded-full ${(isToday ? "bg-white" : "bg-b")}`}/>}
                     {hasOnsite && <span className={`w-1.5 h-1.5 rounded-full ${(isToday ? "bg-white" : "bg-g")}`}/>}
@@ -159,8 +159,8 @@ export const CalendarView = ({ events, holidays, options: o }: CalendarViewProps
 
       {/* Schedule meeting modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 bg-[rgba(15,23,42,0.5)] flex items-center justify-center z-100" onClick={() => setShowScheduleModal(false)}>
-          <div onClick={e => e.stopPropagation()} className="w-135 bg-paper rounded-2xl p-7 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+        <div className="fixed inset-0 bg-[rgba(15,23,42,0.5)] flex items-center justify-center z-100 p-4" onClick={() => setShowScheduleModal(false)}>
+          <div onClick={e => e.stopPropagation()} className="w-full max-w-135 max-h-[90vh] overflow-y-auto bg-paper rounded-2xl p-5 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
             <div className="flex justify-between items-start mb-5">
               <div>
                 <div className="text-[11px] text-b font-extrabold tracking-[2px] uppercase mb-1">Teams meeting</div>
@@ -176,7 +176,7 @@ export const CalendarView = ({ events, holidays, options: o }: CalendarViewProps
               <input placeholder="Meeting title" className="w-full py-2.5 px-3 border border-border rounded-lg font-sans text-[13px] outline-none"/>
             </div>
 
-            <div className="grid grid-cols-[1fr_1fr] gap-3 mb-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3.5">
               <div>
                 <label style={labelStyle}>Date</label>
                 <input type="date" defaultValue="2026-10-07" className="w-full py-2.5 px-3 border border-border rounded-lg font-sans text-[13px] outline-none"/>

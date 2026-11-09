@@ -19,23 +19,23 @@ export const PayrollRun = () => (
     />
 
     <Card padding={0} className="text-white border-0 mb-5 overflow-hidden" style={{ background: `linear-gradient(135deg, ${T.gDeep} 0%, ${T.gDark} 100%)` }}>
-      <div className="py-6 px-7 grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-7 items-center">
-        <div>
+      <div className="py-5 px-5 sm:py-6 sm:px-7 grid grid-cols-3 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-4 sm:gap-7 items-center">
+        <div className="col-span-3 md:col-span-1">
           <div className="text-[11px] text-a tracking-[2px] uppercase font-extrabold mb-1.5">Active cycle · Diwali included</div>
-          <div className="text-[30px] font-extrabold tracking-[-0.8px]">October 2026</div>
+          <div className="text-[24px] sm:text-[30px] font-extrabold tracking-[-0.8px]">October 2026</div>
           <div className="text-[13px] opacity-85 mt-1.5">Cutoff <strong className="text-a">26 Oct</strong> · Pay date <strong className="text-a">31 Oct</strong></div>
         </div>
         <div>
           <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">Eligible</div>
-          <div className="text-[24px] font-extrabold mt-1 font-mono">128</div>
+          <div className="text-[16px] sm:text-[24px] whitespace-nowrap font-extrabold mt-1 font-mono">128</div>
         </div>
         <div>
           <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">Gross</div>
-          <div className="text-[24px] font-extrabold mt-1 font-mono">₹ 4.22 Cr</div>
+          <div className="text-[16px] sm:text-[24px] whitespace-nowrap font-extrabold mt-1 font-mono">₹ 4.22 Cr</div>
         </div>
         <div>
           <div className="text-[10.5px] tracking-[1.5px] uppercase opacity-75 font-extrabold">Diwali bonus</div>
-          <div className="text-[24px] font-extrabold mt-1 text-a font-mono">₹ 1.42 Cr</div>
+          <div className="text-[16px] sm:text-[24px] whitespace-nowrap font-extrabold mt-1 text-a font-mono">₹ 1.42 Cr</div>
         </div>
       </div>
     </Card>

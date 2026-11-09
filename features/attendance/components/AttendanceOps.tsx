@@ -16,7 +16,7 @@ export const AttendanceOps = () => (
       title="Attendance Operations"
       sub="Live floor status · anomalies · regularizations · shift management"
       action={
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Btn variant="ghost" icon={Download}>Day report</Btn>
           <Btn variant="primary" icon={RefreshCw}>Refresh</Btn>
         </div>
@@ -24,7 +24,7 @@ export const AttendanceOps = () => (
     />
 
     {/* Live floor status */}
-    <div className="grid grid-cols-5 gap-3.5 mb-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 mb-5">
       <Card padding={16} className="border-l-4 border-l-g">
         <div className="text-[11px] text-ink-3 font-bold tracking-[1.2px] uppercase">Present at site</div>
         <div className="text-[24px] font-extrabold text-ink mt-1.5 font-mono tracking-[-0.6px]">{LIVE_FLOOR.present}</div>
@@ -53,8 +53,8 @@ export const AttendanceOps = () => (
     </div>
 
     {/* Late arrivals + Geofence anomalies */}
-    <div className="grid grid-cols-[1.5fr_1fr] gap-4.5 mb-5">
-      <Card padding={0}>
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-4.5 mb-5">
+      <Card padding={0} className="overflow-x-auto">
         <div className="py-4 px-5 border-b border-b-border flex justify-between items-center">
           <div>
             <div className="text-[15px] font-bold text-ink tracking-[-0.3px]">Late arrivals today</div>
@@ -63,7 +63,7 @@ export const AttendanceOps = () => (
           <Pill tone="err" dot>{LATE_ARRIVALS.length}</Pill>
         </div>
         {LATE_ARRIVALS.map((l, i, arr) => (
-          <div key={i} className={`grid grid-cols-[40px_1.3fr_1fr_80px_1fr_90px] gap-3 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
+          <div key={i} className={`min-w-[640px] grid grid-cols-[40px_1.3fr_1fr_80px_1fr_90px] gap-3 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
             <Avatar name={l.emp} size={32}/>
             <div>
               <div className="text-[13px] font-bold text-ink">{l.emp}</div>
@@ -111,7 +111,7 @@ export const AttendanceOps = () => (
         </div>
         <Btn variant="ghost" size="sm" icon={Edit3}>Manage shifts</Btn>
       </div>
-      <div className="grid grid-cols-4 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5">
         {SHIFT_TODAY.map((s, i) => (
           <div key={i} className="p-4 bg-canvas border border-border rounded-[10px]" style={{ borderLeft: `3px solid ${s.color}` }}>
             <div className="text-[11px] text-ink-3 font-bold tracking-[1.2px] uppercase">{s.shift}</div>

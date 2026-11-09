@@ -34,7 +34,7 @@ export const EmployeeDirectory = () => {
         title="Employees"
         sub={`${ORG.total} total · ${ORG.active} active · ${ORG.newThisMonth} joined this month`}
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" icon={Download}>Export CSV</Btn>
             <Btn variant="primary" icon={UserPlus}>Add Employee</Btn>
           </div>
@@ -61,7 +61,7 @@ export const EmployeeDirectory = () => {
 
       <Card padding={0}>
         <div className="overflow-x-auto">
-          <table className="w-full font-sans" style={{ borderCollapse: "collapse" }}>
+          <table className="w-full font-sans border-collapse">
             <thead>
               <tr className="bg-canvas">
                 {["ID", "Employee", "Department", "Type", "Performance", "Joined", "Status", ""].map((h, i) => (

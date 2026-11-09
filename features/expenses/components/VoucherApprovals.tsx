@@ -21,7 +21,7 @@ export const VoucherApprovals = () => {
         title="Vouchers"
         sub={`${PENDING_VOUCHERS.length} vouchers awaiting payout · ₹ ${pendingTotal.toLocaleString("en-IN")} total`}
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Btn variant="ghost" icon={Download}>Export</Btn>
             <Btn variant="primary" icon={Send}>Pay all approved</Btn>
           </div>
@@ -29,7 +29,7 @@ export const VoucherApprovals = () => {
       />
 
       {/* KPIs */}
-      <div className="grid grid-cols-4 gap-3.5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 mb-5">
         <StatKPI label="Pending payout" value={`₹${(pendingTotal/1000).toFixed(1)}K`} trend={`${PENDING_VOUCHERS.length} vouchers`} trendColor="amber"/>
         <StatKPI label="Paid this month" value={`₹${(paidTotal/1000).toFixed(1)}K`} trend={`${PAID_VOUCHERS.length} vouchers`}/>
         <StatKPI label="Avg processing" value="2.1 days" trend="SLA target: 3 days"/>
@@ -37,7 +37,7 @@ export const VoucherApprovals = () => {
       </div>
 
       {/* Tab switcher */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex flex-wrap gap-2 mb-5">
         {[
           { id: "pending", label: "Pending payout", n: PENDING_VOUCHERS.length },
           { id: "paid",    label: "Paid",            n: PAID_VOUCHERS.length },
@@ -50,11 +50,11 @@ export const VoucherApprovals = () => {
       </div>
 
       {tab === "pending" && (
-        <div className={`grid gap-4.5 ${(selected ? "grid-cols-[1.3fr_1fr]" : "grid-cols-[1fr]")}`}>
+        <div className={`grid gap-4.5 ${(selected ? "grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]" : "grid-cols-1")}`}>
           {/* Voucher list */}
-          <Card padding={0}>
+          <Card padding={0} className="overflow-x-auto">
             {PENDING_VOUCHERS.map((v, i, arr) => (
-              <div key={v.id} onClick={() => setSelected(v)} className={`py-4 px-5 cursor-pointer ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")} ${(selected?.id === v.id ? "bg-g-mist" : "bg-paper")} ${(selected?.id === v.id ? "border-l-3 border-l-g" : "border-l-3 border-l-transparent")}`}>
+              <div key={v.id} onClick={() => setSelected(v)} className={`min-w-[760px] py-4 px-5 cursor-pointer ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")} ${(selected?.id === v.id ? "bg-g-mist" : "bg-paper")} ${(selected?.id === v.id ? "border-l-3 border-l-g" : "border-l-3 border-l-transparent")}`}>
                 <div className="grid grid-cols-[40px_1.4fr_1fr_90px_1fr_150px] gap-3.5 items-center">
                   <Avatar name={v.emp} size={34}/>
                   <div>
@@ -148,9 +148,9 @@ export const VoucherApprovals = () => {
       )}
 
       {tab === "paid" && (
-        <Card padding={0}>
+        <Card padding={0} className="overflow-x-auto">
           {PAID_VOUCHERS.map((v, i, arr) => (
-            <div key={v.id} className={`grid grid-cols-[40px_1.4fr_1.2fr_1fr_1fr_110px_100px] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
+            <div key={v.id} className={`min-w-[860px] grid grid-cols-[40px_1.4fr_1.2fr_1fr_1fr_110px_100px] gap-3.5 items-center py-3.5 px-5 ${(i < arr.length - 1 ? "border-b border-b-border" : "border-b-0")}`}>
               <Avatar name={v.emp} size={32}/>
               <div>
                 <div className="text-[13px] font-bold text-ink">{v.emp}</div>
